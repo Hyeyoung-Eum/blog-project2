@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog : menu 수정 페이지</title>
+</head>
+<body>
+    <div>menu를 새로 만들 수 있다.</div>
+    <div>
+        <form action="/menu" method="post">{%csrf_token%}
+            <label for="category">새로 추가할 게시판 이름 : </label>
+            <input type="text" name="category" id="category" required>
+            <button type="submit">추가 하기</button>
+        </form>
+    </div>
+    <div>만들면 menu에 맞는 페이지가 자동으로 생성될 수 있도록, url에도 자유가 있어야함.</div>
+    
+</body>
+</html>
