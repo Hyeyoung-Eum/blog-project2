@@ -17,9 +17,11 @@
     </div>
     <div>
         <h3>카테고리를 선택해주세요</h3>
-        <a href="{% url 'category' 'programming' %}">programming</a>
-        <a href="{% url 'category' 'music' %}">music</a>
-        <a href="{% url 'category' 'study' %}">study</a>
+        <ul>
+        <li><a href="{% url 'category' 'programming' %}">programming </a>{{a}}</li>
+        <li><a href="{% url 'category' 'music' %}">music </a>{{b}}</li>
+        <li><a href="{% url 'category' 'study' %}">study </a>{{c}}</li>
+        </ul>
     </div>
 </body>
 </html>
