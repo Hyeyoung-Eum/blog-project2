@@ -16,9 +16,9 @@
         <div>
             <label for="category">카테고리 설정</label>
             <select name="category" id="category">
-                {% for category in categories %}
-                <option value="{{category.name}}">{{category.name}}</option>
-                {% endfor %}
+                <option value="programming">programming</option>
+                <option value="music">music</option>
+                <option value="study">study</option>
             </select>
         </div>
        <div>
@@ -27,5 +27,6 @@
        </div>
        <button type="submit">작성 완료</button>
     </form>
+    <a href="/">메인으로 돌아가기</a>
 </body>
 </html>

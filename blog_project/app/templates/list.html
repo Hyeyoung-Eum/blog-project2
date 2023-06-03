@@ -7,13 +7,12 @@
     <title>Article List</title>
 </head>
 <body>
-    <!-- <h2>글 전체 목록</h2>
+    <h2>글 전체 목록</h2>
     <ul>
         {% for article in articles %}
-        <li><a href="{% url 'detail' article.id %}">{{article.title}}</a></li>
-        {% endfor %} -->
+        <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
+        {% endfor %}
     </ul>
     <a href="{% url 'new' %}">글 쓰러 가기</a>
-    <a href="{% url 'category'%}">카테고리 게시판</a>
 </body>
 </html>

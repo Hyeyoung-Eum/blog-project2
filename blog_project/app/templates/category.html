@@ -4,26 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Category</title>
 </head>
 <body>
     <div>
-        <h2>카테고리별 게시판</h2>
-        <!-- {% for category in categories %}
-        <li><a href="{url 'category' category.name %}">{{category.name}}</a></li>
-        {% endfor %} -->
+        <h2>{{category}} 카테고리 게시판</h2>
+        {% for article in articles %}
+            {% if article.category == category %}
+            <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
+            {% endif %}
+        {% endfor %}
     </div>
-    <div>
-        <!-- <h3>{{category_name}}</h3>
-        {% for article in category_articles %}
-            <div>
-                <ul>
-                    <li>{{article.title}}</li>
-                    <li><a href="{% url 'detail' article.pk %}">보기</a></li>
-                </ul>
-            </div>
-        {% endfor %} -->
-    </div>
+    <a href="/">메인으로 돌아가기</a>
 </body>
 </html>
 

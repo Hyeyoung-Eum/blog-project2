@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Article, Category
+from .models import Article
 # Create your views here.
 
 def main(request):
     return render(request, 'main.html')
 
 def new(request):
-    categories=Category.objects.all()
     if request.method == 'POST':
         print(request.POST)
 
@@ -17,7 +16,7 @@ def new(request):
             category=request.POST['category']
         )
         return redirect('list')
-    return render(request, 'new.html', {'categories':categories})
+    return render(request, 'new.html', {})
 
 def list(request):
     articles = Article.objects.all()
@@ -27,22 +26,7 @@ def detail(request, article_id):
     article=Article.objects.get(id = article_id)
     return render(request, 'detail.html', {'article':article})
 
-def new_menu(request):
-    if request.method =='POST':
-        print(request.POST)
+def category(request, category):
+    articles =Article.objects.filter(category=category)
 
-        new_menu=Category.objects.create(
-            name=request.POST['category']
-        )
-        return redirect('menu')
-    return render(request, 'new_menu.html')
-
-def menu(request):
-    categories = Category.objects.all()
-    return render(request, 'menu.html', {'categories':categories})
-
-def category(request, category_name):
-    category_articles =Article.objects.filter(name=category_name)
-    categories = Category.objects.all()
-
-    return render(request, 'category.html', {'category_posts':category_articles, 'categories':categories, 'category_name':category_name})
+    return render(request, 'category.html', {'articles':articles, 'category':category})
