@@ -32,12 +32,12 @@
     </div>
     <div>
         <h3>댓글</h3>
-        {% for comment in comments %}
-        <div>
-            <li>{{comment.content}}
-                <a href="{% url 'delete_comment' article.id comment.id %}">삭제</a>
+        {% for comment_for in comments_for %}        <div>
+            <li>{{comment_for.content}}
+                <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
+                <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
+                <span>{{comment_for.like}}</span>
             </li>
-            
         </div>
         {% endfor %}
         <div>

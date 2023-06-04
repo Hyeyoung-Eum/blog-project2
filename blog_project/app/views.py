@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Article, Comment
 from django.utils import timezone
+from datetime import datetime
 # Create your views here.
 
 def main(request):
@@ -15,7 +16,7 @@ def main(request):
             b+=1
         if article.category == 'study':
             c+=1
-    return render(request, 'main.html',{'a' :a, 'b':b, 'c':c})
+    return render(request, 'main.html',{'a' :a, 'b':b, 'c':c, 'articles':articles})
 
 def new(request):
     if request.method == 'POST':
@@ -46,16 +47,23 @@ def list(request):
 
 def detail(request, article_id):
     article=Article.objects.get(id = article_id)
-    comments=Comment.objects.all()
 
+    ###댓글###
+    comments_all=Comment.objects.all()
+    comments_for=[]
+    for comment in comments_all:
+        if article.id == comment.article_id:
+            comments_for.append(comment)
     if request.method =="POST":
         comment=Comment.objects.create(
             article=article,
             content=request.POST['content']
         )
         return redirect('detail', article_id)
+    ###댓글 관련
     
-    return render(request, 'detail.html', {'article':article, 'comments':comments})
+
+    return render(request, 'detail.html', {'article':article, 'comments_for':comments_for})
 
 def category(request, category):
     articles =Article.objects.filter(category=category)
@@ -69,7 +77,8 @@ def update(request, article_id):
         Article.objects.filter(id=article_id).update(
             title=request.POST['title'],
             content=request.POST['content'],
-            category=request.POST['category']
+            category=request.POST['category'],
+            updated_at=datetime.now()
         )
 
         return redirect('detail',article_id)
@@ -89,4 +98,13 @@ def alldelete(request):
 def delete_comment(request, article_id, comment_id):
     comment=Comment.objects.get(id=comment_id)
     comment.delete()
+    return redirect('detail', article_id)
+
+def like(request, article_id, comment_id):
+    comment=Comment.objects.get(id=comment_id)
+    Comment.objects.filter(id=comment_id).update(
+        like=comment.like+1
+    )
+
+
     return redirect('detail', article_id)

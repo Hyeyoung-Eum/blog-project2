@@ -28,4 +28,5 @@ urlpatterns = [
     path('delete/<int:article_id>', views.delete, name='delete'),
     path('alldelete', views.alldelete, name='alldelete'),
     path('delete_comment/<int:article_id>/<int:comment_id>', views.delete_comment, name='delete_comment'),
+    path('like/<int:article_id>/<int:comment_id>', views.like, name='like'),
 ]
