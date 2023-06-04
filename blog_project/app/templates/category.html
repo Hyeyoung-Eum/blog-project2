@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
-</head>
-<body>
-    <div>
-        <h2>{{category}} 카테고리 게시판</h2>
-        {% for article in articles %}
-            {% if article.category == category %}
-            <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <a href="/">메인으로 돌아가기</a>
-</body>
-</html>
+{% extends 'base.html' %}
 
-<!-- #카테고리를 추가 누르면 카테고리가 추가되고, -->
+{% block css %}
+{% load static %}
+{% endblock css %}
+
+{% block title %}
+<title>Category</title>
+{% endblock title %}
+
+{% block body1 %}
+<div>
+    <h2>{{category}} 카테고리 게시판</h2>
+    {% for article in articles %}
+        {% if article.category == category %}
+        <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
+        {% endif %}
+    {% endfor %}
+</div>
+<a href="/">메인으로 돌아가기</a>
+{% endblock body1 %}
+
+
+

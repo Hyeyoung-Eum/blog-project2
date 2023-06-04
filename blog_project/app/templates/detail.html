@@ -1,79 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link type="text/css" rel="stylesheet" href="{% static '../static/detail.css' %}">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Detail</title>
-</head>
-<body>
-    <h2>글 상세 페이지</h2>
-    <div>
-        <h3>제목</h3>
-        <div>{{article.title}}</div>
-    </div>
-    <div>
-        <h3>카테고리</h3>
-        <div>{{article.category}}</div>
-    </div>
-    <div>
-        <h3>내용</h3>
-        <div>{{article.content}}</div>
-    </div>
-    <div>
-        <p>글 생성 시간 : {{article.created_at}}</p>
-        <p>글 최근 수정 시간 : {{article.updated_at}}</p>
-    </div>
-    <div>
-        <a href="{% url 'update' article.id %}">글 수정하기</a>
-        <a href="{% url 'delete' article.id %}">글 삭제하기</a>
-        <a href="{% url 'list' %}">전체 목록으로 돌아가기</a>
-        <a href="/">메인으로 돌아가기</a>
-    </div>
-    <div>
-        <h3>댓글</h3>
-        {% for comment_for in comments_for %}
-        <div class="comment-box">
-                <li>{{comment_for.content}}
-                    <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
-                    <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
-                    <span>{{comment_for.like}}</span>
-                    <span>{{comment_for.created_at}}</span>
-                </li>
-            
-                    <div class="reply">
-                        {% for reply in replies %}
-                            {% if reply.comment_id == comment_for.id %}
-                            <li>{{reply.content}}
-                                <a href="{% url 'delete_reply' article.id comment_for.id reply.id %}">삭제</a>
-                                <a href="{% url 'like_reply' article.id comment_for.id reply.id %}">좋아요</a>
-                                <span>{{reply.like}}</span>
-                                <span>{{reply.created_at}}</span>
-                            </li>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+{% extends 'base.html' %}
 
+{% block css %}
+{% load static %}
+<link type="text/css" rel="stylesheet" href="{% static '../static/detail.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
 
-            <div>
-                <form method="POST" action="{% url 'reply' article.id comment_for.id %}"> {% csrf_token %}
-                    <input type="text" name="content" id="content" placeholder="대댓글을 입력하세요"/>
-                    <input type="submit" value="입력"/>
-                </form>
-            </div>
-        </div>
-        {% endfor %}
+{% endblock css %}
+
+{% block title %}
+<title>Article Detail</title>
+{% endblock title %}
+
+{% block body1 %}
+<h2>글 상세 페이지</h2>
+<div>
+    <h3>제목</h3>
+    <div>{{article.title}}</div>
+</div>
+<div>
+    <h3>카테고리</h3>
+    <div>{{article.category}}</div>
+</div>
+<div>
+    <h3>내용</h3>
+    <div>{{article.content}}</div>
+</div>
+<div>
+    <p>글 생성 시간 : {{article.created_at}}</p>
+    <p>글 최근 수정 시간 : {{article.updated_at}}</p>
+</div>
+<div>
+    <a href="{% url 'update' article.id %}">글 수정하기</a>
+    <a href="{% url 'delete' article.id %}">글 삭제하기</a>
+    <a href="{% url 'list' %}">전체 목록으로 돌아가기</a>
+    <a href="/">메인으로 돌아가기</a>
+</div>
+<div>
+    <h3>댓글</h3>
+    {% for comment_for in comments_for %}
+    <div class="comment-box">
+            <li>{{comment_for.content}}
+                <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
+                <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
+                <span>{{comment_for.like}}</span>
+                <span>{{comment_for.created_at}}</span>
+            </li>
+        
+                <div class="reply">
+                    {% for reply in replies %}
+                        {% if reply.comment_id == comment_for.id %}
+                        <li>{{reply.content}}
+                            <a href="{% url 'delete_reply' article.id comment_for.id reply.id %}">삭제</a>
+                            <a href="{% url 'like_reply' article.id comment_for.id reply.id %}">좋아요</a>
+                            <span>{{reply.like}}</span>
+                            <span>{{reply.created_at}}</span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
 
         <div>
-            <form method="POST" action=""> {% csrf_token %}
-                <input type="text" name="content" id="content" placeholder="댓글을 입력하세요"/>
+            <form method="POST" action="{% url 'reply' article.id comment_for.id %}"> {% csrf_token %}
+                <input type="text" name="content" id="content" placeholder="대댓글을 입력하세요"/>
                 <input type="submit" value="입력"/>
             </form>
         </div>
     </div>
+    {% endfor %}
 
-
-</body>
-</html>
+    <div>
+        <form method="POST" action=""> {% csrf_token %}
+            <input type="text" name="content" id="content" placeholder="댓글을 입력하세요"/>
+            <input type="submit" value="입력"/>
+        </form>
+    </div>
+</div>
+{% endblock body1 %}

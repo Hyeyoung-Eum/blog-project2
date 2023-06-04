@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HY Blog</title>
-</head>
-<body>
-    <h2>블로그 입니다</h2>
-    <div>
-        <h3>글 전체 목록</h3>
-        {% for article in articles %}
-        <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
-        {% endfor %}
-    </div>
+{% extends 'base.html' %}
 
-    <div>
+{% block css %}
+{% load static %}
+<link type="text/css" rel="stylesheet" href="{% static '../static/main.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+{% endblock css %}
+
+{% block title %}
+<title>HY Blog</title>
+{% endblock title %}
+
+{% block body1 %}
+<container class="container">
+    <div class="board">
         <h3>게시판</h3>
         <ul>
         <li><a href="{% url 'category' 'programming' %}">programming </a>{{a}}</li>
@@ -25,8 +25,28 @@
     </div>
 
     <div>
-        <a href="{% url 'new' %}">글 쓰러 가기</a>
-        <a href="{% url 'list' %}">글 목록 보러가기</a>
+        <h3 class="title">글 전체 목록</h3>
+        <hr>
+        <div class="list">
+        {% for article in articles %}
+        <a href="{% url 'detail' article.id %}"><div class="article_list">
+            <li>{{article.category}}</li>
+            <li>{{article.title}}</li>
+            <li>{{article.created_at}}</li>
+        </div></a>
+        <hr>
+        {% endfor %}
+        </div>
     </div>
-</body>
-</html>
+</container>
+
+<div class="bottom">
+    <a href="{% url 'list' %}">글 관리</a>
+    <br>
+    <a href="{% url 'new' %}">글 쓰러 가기</a>
+</div>
+{% endblock body1 %}
+
+
+
+

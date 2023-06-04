@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article List</title>
-</head>
-<body>
-    <h2>글 전체 목록</h2>
-    <ul>
-        {% for article in articles %}
-        <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'new' %}">글 쓰러 가기</a>
-    <a href="/">메인으로 돌아가기</a>
-    <a href="{% url 'alldelete' %}">글 전체 삭제하기</a>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block css %}
+{% load static %}
+{% endblock css %}
+
+{% block title %}
+<title>Article List</title>
+{% endblock title %}
+
+{% block body1 %}
+<h2>글 전체 목록</h2>
+<ul>
+    {% for article in articles %}
+    <a href="{% url 'detail' article.id %}"><li>{{article.title}}</li></a>
+    {% endfor %}
+</ul>
+<a href="{% url 'new' %}">글 쓰러 가기</a>
+<a href="/">메인으로 돌아가기</a>
+<a href="{% url 'alldelete' %}">글 전체 삭제하기</a>
+{% endblock body1 %}

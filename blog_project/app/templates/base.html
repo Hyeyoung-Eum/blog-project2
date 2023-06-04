@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '../static/base.css' %}">
+
+    {% block css %}
+    {% endblock css %}
+
+    {% block title %}
+    {% endblock title %}
+
+</head>
+
+<body>
+
+    <div class="menu">
+        <div>
+            <a href="/">HY Blog</a>
+        </div>
+        <div>
+            <a href="{% url 'category' 'programming' %}">programming </a>
+        </div>
+        <div>
+            <a href="{% url 'category' 'music' %}">music </a>
+        </div>
+        <div>
+        <a href="{% url 'category' 'study' %}">study </a>
+        </div>
+        </ul>
+    </div>
+
+    <div id="wrapper">
+    {% block body1 %}
+    {% endblock body1 %}
+    </div>
+
+    <footer>
+        <hr>
+        <div class="footer">
+        <a>Hyeyoung Eum</a>
+        <a href="mailto:djagpdud125@naver.com">send email</a><br>
+        <a href="https://www.instagram.com/umazing_zer0/">instagram</a>
+        </div>
+    </footer>
+</body>
+</html>

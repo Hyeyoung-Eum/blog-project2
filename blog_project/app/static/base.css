@@ -1,0 +1,86 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing:border-box;
+    color:black;
+}
+
+p,li,a:hover {
+    color:gray;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input:focus{
+    outline:none;
+}
+
+body{
+    min-width:320px;
+    margin: 20px 100px;
+}
+
+p {
+    font-family: 'Noto Serif KR', serif;
+}
+
+.menu {
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    font-size:20px;
+    padding: 20px;
+}
+
+/* 콘텐츠 길이에 상관없이, footer 고정하는 방법 */
+#wrapper{
+    padding-top: 50px;
+    height : auto;
+    min-height: 100%;
+    padding-bottom: 50px;
+}
+
+footer{
+    height: 50px;
+    position : relative;
+    transform : translateY(-100%);
+}
+
+.footer {
+    display:flex;
+    justify-content: space-around;
+}
+
+.board{
+    border: 1px solid rgb(174, 174, 174);
+    height:200px;
+    width:150px;
+    padding :12px;
+}
+
+.list{
+    width:800px;
+}
+
+.title{
+    padding:20px;
+}
+
+.bottom{
+    height:300px;
+}
