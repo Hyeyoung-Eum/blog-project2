@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Article
+from .models import Article, Comment
 from django.utils import timezone
 # Create your views here.
 
@@ -46,7 +46,16 @@ def list(request):
 
 def detail(request, article_id):
     article=Article.objects.get(id = article_id)
-    return render(request, 'detail.html', {'article':article})
+    comments=Comment.objects.all()
+
+    if request.method =="POST":
+        comment=Comment.objects.create(
+            article=article,
+            content=request.POST['content']
+        )
+        return redirect('detail', article_id)
+    
+    return render(request, 'detail.html', {'article':article, 'comments':comments})
 
 def category(request, category):
     articles =Article.objects.filter(category=category)
@@ -76,3 +85,8 @@ def alldelete(request):
     for article in articles:
         article.delete()
     return redirect('list')
+
+def delete_comment(request, article_id, comment_id):
+    comment=Comment.objects.get(id=comment_id)
+    comment.delete()
+    return redirect('detail', article_id)

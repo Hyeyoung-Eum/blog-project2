@@ -11,7 +11,7 @@
     <form action="" method="post">{%csrf_token%}
         <div>
             <div>글 제목</div>
-            <input type="text" name="title" required/>
+            <input type="text" name="title" required placeholder="제목을 입력해주세요" />
         </div>
         <div>
             <label for="category">카테고리 설정</label>
@@ -23,7 +23,7 @@
         </div>
        <div>
            <div>글 내용</div>
-           <textarea required name="content" cols="30" rows="10"></textarea>
+           <textarea required name="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
        </div>
        <button type="submit">작성 완료</button>
     </form>

@@ -24,9 +24,30 @@
         <p>글 생성 시간 : {{article.created_at}}</p>
         <p>글 최근 수정 시간 : {{article.updated_at}}</p>
     </div>
-    <a href="{% url 'update' article.id %}">글 수정하기</a>
-    <a href="{% url 'delete' article.id %}">글 삭제하기</a>
-    <a href="{% url 'list' %}">전체 목록으로 돌아가기</a>
-    <a href="/">메인으로 돌아가기</a>
+    <div>
+        <a href="{% url 'update' article.id %}">글 수정하기</a>
+        <a href="{% url 'delete' article.id %}">글 삭제하기</a>
+        <a href="{% url 'list' %}">전체 목록으로 돌아가기</a>
+        <a href="/">메인으로 돌아가기</a>
+    </div>
+    <div>
+        <h3>댓글</h3>
+        {% for comment in comments %}
+        <div>
+            <li>{{comment.content}}
+                <a href="{% url 'delete_comment' article.id comment.id %}">삭제</a>
+            </li>
+            
+        </div>
+        {% endfor %}
+        <div>
+            <form method="POST" action=""> {% csrf_token %}
+                <input type="text" name="content" id="content" placeholder="댓글을 입력하세요"/>
+                <input type="submit" value="입력"/>
+            </form>
+        </div>
+    </div>
+
+
 </body>
 </html>
