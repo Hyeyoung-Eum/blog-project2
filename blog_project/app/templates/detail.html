@@ -35,31 +35,30 @@
     <div>
         <h3>댓글</h3>
         {% for comment_for in comments_for %}
-        {{comment_for.parent_comment}}
         <div class="comment-box">
-            <!-- {% if comment_for.parent_comment == None %} -->
                 <li>{{comment_for.content}}
                     <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
                     <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
                     <span>{{comment_for.like}}</span>
                     <span>{{comment_for.created_at}}</span>
                 </li>
-            <!-- {% endif %} -->
             
-                    {% if comment_for.parent_comment == comment_for.id %}
                     <div class="reply">
-                        <li>{{comment_for.content}}
-                            <a href="{% url 'delete_comment' article.id reply.id %}">삭제</a>
-                            <a href="{% url 'like' article.id reply.id %}">좋아요</a>
-                            <span>{{comment_for.like}}</span>
-                            <span>{{comment_for.created_at}}</span>
-                        </li>
+                        {% for reply in replies %}
+                            {% if reply.comment_id == comment_for.id %}
+                            <li>{{reply.content}}
+                                <a href="{% url 'delete_reply' article.id comment_for.id reply.id %}">삭제</a>
+                                <a href="{% url 'like_reply' article.id comment_for.id reply.id %}">좋아요</a>
+                                <span>{{reply.like}}</span>
+                                <span>{{reply.created_at}}</span>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    {% endif %}
 
 
             <div>
-                <form method="POST" action=""> {% csrf_token %}
+                <form method="POST" action="{% url 'reply' article.id comment_for.id %}"> {% csrf_token %}
                     <input type="text" name="content" id="content" placeholder="대댓글을 입력하세요"/>
                     <input type="submit" value="입력"/>
                 </form>

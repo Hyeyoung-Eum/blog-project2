@@ -14,8 +14,16 @@ class Article(models.Model):
 
 class Comment(models.Model):
     article=models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    parent_comment=models.ForeignKey('self', on_delete=models.CASCADE, null=True, default=None) #Comment_id 저장
     content=models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True) #작성 시간 저장
+    like = models.PositiveIntegerField(default=0) #좋아요 수 저장
+
+    def __str__(self):
+        return self.content
+
+class Reply(models.Model):
+    comment=models.ForeignKey(Comment, on_delete=models.CASCADE, null=True) #Comment_id 저장
+    content=models.TextField()    
     created_at = models.DateTimeField(auto_now_add=True, null=True) #작성 시간 저장
     like = models.PositiveIntegerField(default=0) #좋아요 수 저장
 

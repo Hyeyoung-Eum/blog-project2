@@ -28,6 +28,8 @@ urlpatterns = [
     path('delete/<int:article_id>', views.delete, name='delete'),
     path('alldelete', views.alldelete, name='alldelete'),
     path('delete_comment/<int:article_id>/<int:comment_id>', views.delete_comment, name='delete_comment'),
+    path('delete_reply/<int:article_id>/<int:comment_id>/<int:reply_id>', views.delete_reply, name='delete_reply'),
     path('like/<int:article_id>/<int:comment_id>', views.like, name='like'),
-    # path('reply/<int:article_id>/<int:comment_id>', views.reply, name='reply'),
+    path('like_reply/<int:article_id>/<int:comment_id>/<int:reply_id>', views.like_reply, name='like_reply'),
+    path('reply/<int:article_id>/<int:comment_id>', views.reply, name='reply'),
 ]
