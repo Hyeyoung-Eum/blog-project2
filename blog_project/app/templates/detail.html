@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static '../static/detail.css' %}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,14 +34,39 @@
     </div>
     <div>
         <h3>댓글</h3>
-        {% for comment_for in comments_for %}        <div>
-            <li>{{comment_for.content}}
-                <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
-                <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
-                <span>{{comment_for.like}}</span>
-            </li>
+        {% for comment_for in comments_for %}
+        {{comment_for.parent_comment}}
+        <div class="comment-box">
+            <!-- {% if comment_for.parent_comment == None %} -->
+                <li>{{comment_for.content}}
+                    <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
+                    <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
+                    <span>{{comment_for.like}}</span>
+                    <span>{{comment_for.created_at}}</span>
+                </li>
+            <!-- {% endif %} -->
+            
+                    {% if comment_for.parent_comment == comment_for.id %}
+                    <div class="reply">
+                        <li>{{comment_for.content}}
+                            <a href="{% url 'delete_comment' article.id reply.id %}">삭제</a>
+                            <a href="{% url 'like' article.id reply.id %}">좋아요</a>
+                            <span>{{comment_for.like}}</span>
+                            <span>{{comment_for.created_at}}</span>
+                        </li>
+                    </div>
+                    {% endif %}
+
+
+            <div>
+                <form method="POST" action=""> {% csrf_token %}
+                    <input type="text" name="content" id="content" placeholder="대댓글을 입력하세요"/>
+                    <input type="submit" value="입력"/>
+                </form>
+            </div>
         </div>
         {% endfor %}
+
         <div>
             <form method="POST" action=""> {% csrf_token %}
                 <input type="text" name="content" id="content" placeholder="댓글을 입력하세요"/>

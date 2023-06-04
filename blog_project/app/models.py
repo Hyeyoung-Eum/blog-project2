@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 
 class Article(models.Model):
@@ -14,13 +14,10 @@ class Article(models.Model):
 
 class Comment(models.Model):
     article=models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    parent_comment=models.ForeignKey('self', on_delete=models.CASCADE, null=True, default=None) #Comment_id 저장
     content=models.TextField()
-    
-    # parent_comment=models.ForeignKey('self', on_delete=models.CASCADE, null=True )
-    # create_at = models.DateTimeField(auto_now_add=True, null=True) #작성 시간 저장
+    created_at = models.DateTimeField(auto_now_add=True, null=True) #작성 시간 저장
     like = models.PositiveIntegerField(default=0) #좋아요 수 저장
 
     def __str__(self):
         return self.content
-
-
