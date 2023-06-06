@@ -14,34 +14,34 @@
 {% endblock title %}
 
 {% block body1 %}
-<h2>글 상세 페이지</h2>
 <div>
-    <h3>제목</h3>
-    <div>{{article.title}}</div>
+    <h2>[{{article.category}}] {{article.title}}</h2>
 </div>
-<div>
-    <h3>카테고리</h3>
-    <div>{{article.category}}</div>
+<br>
+<br>
+<div class="content">
+    <div><pre>{{article.content}}</pre></div>
 </div>
-<div>
-    <h3>내용</h3>
-    <div>{{article.content}}</div>
-</div>
+<br>
 <div>
     <p>글 생성 시간 : {{article.created_at}}</p>
     <p>글 최근 수정 시간 : {{article.updated_at}}</p>
 </div>
+<br><br>
 <div>
     <a href="{% url 'update' article.id %}">글 수정하기</a>
     <a href="{% url 'delete' article.id %}">글 삭제하기</a>
+    <br><br><br><br>
     <a href="{% url 'list' %}">전체 목록으로 돌아가기</a>
     <a href="/">메인으로 돌아가기</a>
 </div>
+
+<br><br><br><br><br>
 <div>
     <h3>댓글</h3>
     {% for comment_for in comments_for %}
     <div class="comment-box">
-            <li>{{comment_for.content}}
+            <li>-{{comment_for.content}}
                 <a href="{% url 'delete_comment' article.id comment_for.id %}">삭제</a>
                 <a href="{% url 'like' article.id comment_for.id %}">좋아요</a>
                 <span>{{comment_for.like}}</span>
@@ -51,7 +51,7 @@
                 <div class="reply">
                     {% for reply in replies %}
                         {% if reply.comment_id == comment_for.id %}
-                        <li>{{reply.content}}
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;-{{reply.content}}
                             <a href="{% url 'delete_reply' article.id comment_for.id reply.id %}">삭제</a>
                             <a href="{% url 'like_reply' article.id comment_for.id reply.id %}">좋아요</a>
                             <span>{{reply.like}}</span>
